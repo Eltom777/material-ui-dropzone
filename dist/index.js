@@ -303,6 +303,10 @@ var styles$2 = {
     height: 51,
     color: '#909090'
   },
+  imageSize: {
+    height: 360,
+    width: 360
+  },
   dropzoneParagraph: {
     fontSize: 24
   }
@@ -595,6 +599,7 @@ var DropzoneArea = /*#__PURE__*/function (_Component) {
       var classes = this.props.classes;
       var showPreviews = this.props.showPreviews && this.state.fileObjects.length > 0;
       var showPreviewsInDropzone = this.props.showPreviewsInDropzone && this.state.fileObjects.length > 0;
+      var isFileUploaded = this.state.fileObject.length > 0;
       return React__default.createElement(React.Fragment, null, React__default.createElement(Dropzone, {
         accept: this.props.acceptedFiles.join(','),
         onDrop: this.onDrop.bind(this),
@@ -608,9 +613,10 @@ var DropzoneArea = /*#__PURE__*/function (_Component) {
         className: classes.dropzoneTextStyle
       }, React__default.createElement("p", {
         className: clsx(classes.dropzoneParagraph, this.props.dropzoneParagraphClass)
-      }, this.state.dropzoneText), React__default.createElement(CloudUploadIcon, {
-        className: classes.uploadIconSize
-      })), showPreviewsInDropzone && React__default.createElement(PreviewList$1, {
+      }, this.state.dropzoneText), isFileUploaded && React__default.createElement('img', {src: this.state.fileObjects[0].data, className: classes.imageSize
+      }),!isFileUploaded && React__default.createElement(CloudUploadIcon, { className: classes.uploadIconSize
+      })),
+       showPreviewsInDropzone && React__default.createElement(PreviewList$1, {
         fileObjects: this.state.fileObjects,
         handleRemove: this.handleRemove.bind(this),
         showFileNames: this.props.showFileNames,
